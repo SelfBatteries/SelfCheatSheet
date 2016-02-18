@@ -1,0 +1,133 @@
+% Inspired by http://tex.stackexchange.com/questions/99765/document-class-for-reference-cards
+
+\documentclass[10pt]{article}
+\usepackage{fixltx2e}
+\usepackage[orthodox,l2tabu,abort]{nag}
+\usepackage{textcomp}
+
+% Page layout
+\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage{multicol}
+
+% Title area
+\usepackage{titling} % Allows for use of date, author, etc. after \maketitle
+% Ref: http://tex.stackexchange.com/questions/3988/titlesec-versus-titling-mangling-thetitle
+\let\oldtitle\title
+\renewcommand{\title}[1]{\oldtitle{#1}\newcommand{\mythetitle}{#1}}
+\renewcommand{\maketitle}{%
+{\begin{center}\Large \mythetitle\end{center}}
+}
+
+% Document divisions
+\usepackage{titlesec}
+\setcounter{secnumdepth}{0}
+\titlespacing{\section}{0pt}{0pt}{0pt}
+\titlespacing{\subsection}{0pt}{0pt}{0pt}
+\usepackage{nopageno} % To keep \section from resetting page style
+
+\setlength{\parindent}{0pt} % disabling indentation by default
+
+% Lists
+\usepackage{enumitem} % for consistent formatting of lists
+\newlist{ttdesc}{description}{1}
+\setlist[ttdesc]{font=\ttfamily,noitemsep}
+\usepackage{calc} % for \widthof
+
+% Code
+\usepackage{listings}
+\lstset{language=[LaTeX]TeX,%
+  basicstyle=\itshape,%
+  keywordstyle=\normalfont\ttfamily,%
+  morekeywords={part,chapter,subsection,subsubsection,paragraph,subparagraph}%
+  }
+
+\usepackage{lipsum}
+
+% Metadata definition
+\title{Selflang sheat sheet}
+\author{Bystroushaak}
+\date{2016}
+\pdfinfo {
+    /Author (\theauthor)
+    /Title    (\thetitle)
+    /Subject  (\thetitle)
+    /Keywords (Self, SelfLang, programming language, programming)
+}
+
+
+% beginning of the document
+\begin{document}
+\begin{multicols}{3}
+\maketitle
+
+\section{Document classes}
+
+\begin{ttdesc}[labelwidth=\widthof{\texttt{report}}]
+\item[book] Default is two-sided.
+\item[report] No \texttt{part} divisions.
+\end{ttdesc}
+
+\subsection{Common \texttt{documentclass} options}
+
+\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper/a4paper}}]
+\item[10pt/11pt/12pt] Font size.
+\item[letterpaper/a4paper] Paper size.
+\item[draft] Double-space lines.
+\end{ttdesc}
+
+\section{Document structure}
+
+\vspace{-\baselineskip}
+
+\begin{multicols*}{2}
+\lstinline|\part{title}| \\
+\lstinline|\chapter{title}| \\
+\lstinline|\section{title}| \\
+\lstinline|\subsection{title}| \\
+\lstinline|\subsubsection{title}| \\
+\lstinline|\paragraph{title}| \\
+\lstinline|\subparagraph{title}|
+\end{multicols*}
+
+\section{Text properties}
+
+\subsection{Font face}
+
+\begin{tabular}{lll}
+Command & Declaration & Effect \\
+\lstinline|\textrm{text}| & \lstinline|{\rmfamily text}| & \textrm{Roman family} \\
+\lstinline|\textsf{text}| & \lstinline|{\sffamily text}| & \textsf{Sans serif family} \\
+\end{tabular}
+
+\section{Math mode}
+
+\subsection{Math mode symbols}
+\begin{multicols*}{4}
+\( \leq \) \verb|\leq| \\
+\( \times \) \verb|\times| \\
+\( ^{\circ} \) \verb|^{\circ}| \\
+\( \infty \) \verb|\infty| \\
+\( \supset \) \verb|\supset| \\
+\( \subset \) \verb|\subset| \\
+\( \cup \) \verb|\cup| \\
+\( \dot a \) \verb|\dot a| \\
+\( \alpha \) \verb|\alpha| \\
+\( \epsilon \) \verb|\epsilon| \\
+\( \theta \) \verb|\theta| \\
+\( \lambda \) \verb|\lambda| \\
+\( \pi \) \verb|\pi| \\
+\( \upsilon \) \verb|\upsilon|
+\end{multicols*}
+
+\section{Filler material}
+
+\lipsum
+
+% Footer
+\vfill \hrule\smallskip
+{\small This card may be freely distributed under
+the terms of the MIT licence ---
+Copyleft \textcopyleft\ \thedate{} by \theauthor{}.}
+{\small http://kitakitsune.org/}
+\end{multicols}
+\end{document}
