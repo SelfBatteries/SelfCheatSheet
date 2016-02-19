@@ -62,10 +62,22 @@
 \maketitle
 
 \section{Object syntax}
-An \textit{object} consists from (empty) set of \textit{slots} and (optionally) \textit{code}.
+An \textit{object} consists from (possibly empty) set of \textit{slots} and (optionally) \textit{code}.
 
 \vspace*{0.2cm}
 \texttt{(| slot1. slot2 | 'code')}
+
+or
+
+\texttt{(| | 'code')}
+
+or
+
+\texttt{(| slot1. slot2. slotN |)}
+
+or
+
+\texttt{()}
 \vspace*{0.2cm}
 
 Slots behave as key-value lookup table. \textit{code} is made from \textit{message sends} and \textit{literals}.
@@ -81,6 +93,8 @@ Slots behave as key-value lookup table. \textit{code} is made from \textit{messa
 
 % \textit{code} defined in the blocks may be evaluated by sending \texttt{value:} message. % TODO: ověřit
 
+\subsection{Message sends}
+
 
 
 
@@ -93,12 +107,16 @@ As usual in Smalltalk-like languages, \textit{if condition} is implemented as ev
 \vspace*{0.2cm}
 \begin{tabular}{ p{3.4cm} p{4cm} l l }
 Command & Description \\ \hline
-\texttt{obj\ ifTrue:\ b1 False: b2} & \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}. If not, (optional) \textit{b2} block is used. \\
+\begin{verbatim}
+obj ifTrue: b1
+    False: b2
+\end{verbatim}
+& \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}.
+If not, (optional) \textit{b2} block is used. \\
 \hline
+
+
 \end{tabular}
-
-
-
 
 
 
