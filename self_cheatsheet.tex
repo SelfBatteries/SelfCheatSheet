@@ -14,8 +14,8 @@
 % Ref: http://tex.stackexchange.com/questions/3988/titlesec-versus-titling-mangling-thetitle
 \let\oldtitle\title
 \renewcommand{\title}[1]{\oldtitle{#1}\newcommand{\mythetitle}{#1}}
-\renewcommand{\maketitle}{%
-{\begin{center}\Large \mythetitle\end{center}}
+\renewcommand{\maketitle}{
+    {\begin{center}\Large \mythetitle\end{center}}
 }
 
 % Document divisions
@@ -35,20 +35,21 @@
 
 % Code
 \usepackage{listings}
-\lstset{language=[LaTeX]TeX,%
-  basicstyle=\itshape,%
-  keywordstyle=\normalfont\ttfamily,%
-  morekeywords={part,chapter,subsection,subsubsection,paragraph,subparagraph}%
-  }
+\lstset{language=[LaTeX]TeX,
+    basicstyle=\itshape,
+    keywordstyle=\normalfont\ttfamily,
+    morekeywords={part,chapter,subsection,subsubsection,paragraph,subparagraph}
+}
 
 \usepackage{lipsum}
 
 % Metadata definition
-\title{Selflang sheat sheet}
+\title{Selflang cheat sheet}
 \author{Bystroushaak}
 \date{2016}
+
 \pdfinfo {
-    /Author (\theauthor)
+    /Author   (\theauthor)
     /Title    (\thetitle)
     /Subject  (\thetitle)
     /Keywords (Self, SelfLang, programming language, programming)
@@ -57,71 +58,51 @@
 
 % beginning of the document
 \begin{document}
-\begin{multicols}{3}
+\begin{multicols*}{3}
 \maketitle
 
-\section{Document classes}
+\section{Object syntax}
+An \textit{object} consists from (empty) set of \textit{slots} and (optionally) \textit{code}.
 
-\begin{ttdesc}[labelwidth=\widthof{\texttt{report}}]
-\item[book] Default is two-sided.
-\item[report] No \texttt{part} divisions.
-\end{ttdesc}
+\vspace*{0.2cm}
+\texttt{(| slot1. slot2 | 'code')}
+\vspace*{0.2cm}
 
-\subsection{Common \texttt{documentclass} options}
+Slots behave as key-value lookup table. \textit{code} is made from \textit{message sends} and \textit{literals}.
 
-\begin{ttdesc}[labelwidth=\widthof{\ttfamily{letterpaper/a4paper}}]
-\item[10pt/11pt/12pt] Font size.
-\item[letterpaper/a4paper] Paper size.
-\item[draft] Double-space lines.
-\end{ttdesc}
+\subsection{Block objects}
+\textit{Block objects} share syntax with \textit{objects}, except that square brackts are used instead of round:
 
-\section{Document structure}
+\vspace*{0.2cm}
+\texttt{[| slot1. slot2 | 'code']}
+\vspace*{0.2cm}
 
-\vspace{-\baselineskip}
+\textit{Block objects} works as closures and supports return statement using \texttt{\^} preceding the returned value. If not used, last statement is returned.
 
-\begin{multicols*}{2}
-\lstinline|\part{title}| \\
-\lstinline|\chapter{title}| \\
-\lstinline|\section{title}| \\
-\lstinline|\subsection{title}| \\
-\lstinline|\subsubsection{title}| \\
-\lstinline|\paragraph{title}| \\
-\lstinline|\subparagraph{title}|
-\end{multicols*}
+% \textit{code} defined in the blocks may be evaluated by sending \texttt{value:} message. % TODO: ověřit
 
-\section{Text properties}
 
-\subsection{Font face}
 
-\begin{tabular}{lll}
-Command & Declaration & Effect \\
-\lstinline|\textrm{text}| & \lstinline|{\rmfamily text}| & \textrm{Roman family} \\
-\lstinline|\textsf{text}| & \lstinline|{\sffamily text}| & \textsf{Sans serif family} \\
+
+
+\section{Control sequences}
+\subsection{If condition}
+
+As usual in Smalltalk-like languages, \textit{if condition} is implemented as everything else by sending messages, in this case to boolean-like objects:
+
+\vspace*{0.2cm}
+\begin{tabular}{ p{3.4cm} p{4cm} l l }
+Command & Description \\ \hline
+\texttt{obj\ ifTrue:\ b1 False: b2} & \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}. If not, (optional) \textit{b2} block is used. \\
+\hline
 \end{tabular}
 
-\section{Math mode}
 
-\subsection{Math mode symbols}
-\begin{multicols*}{4}
-\( \leq \) \verb|\leq| \\
-\( \times \) \verb|\times| \\
-\( ^{\circ} \) \verb|^{\circ}| \\
-\( \infty \) \verb|\infty| \\
-\( \supset \) \verb|\supset| \\
-\( \subset \) \verb|\subset| \\
-\( \cup \) \verb|\cup| \\
-\( \dot a \) \verb|\dot a| \\
-\( \alpha \) \verb|\alpha| \\
-\( \epsilon \) \verb|\epsilon| \\
-\( \theta \) \verb|\theta| \\
-\( \lambda \) \verb|\lambda| \\
-\( \pi \) \verb|\pi| \\
-\( \upsilon \) \verb|\upsilon|
-\end{multicols*}
 
-\section{Filler material}
 
-\lipsum
+
+
+
 
 % Footer
 \vfill \hrule\smallskip
@@ -129,5 +110,5 @@ Command & Declaration & Effect \\
 the terms of the MIT licence ---
 Copyleft \textcopyleft\ \thedate{} by \theauthor{}.}
 {\small http://kitakitsune.org/}
-\end{multicols}
+\end{multicols*}
 \end{document}
