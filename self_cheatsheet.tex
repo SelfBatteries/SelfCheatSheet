@@ -1,5 +1,27 @@
-% Inspired by http://tex.stackexchange.com/questions/99765/document-class-for-reference-cards
+% Copyright (c) 2016 Bystroushaak
 
+% Permission is hereby granted, free of charge, to any person
+% obtaining a copy of this software and associated documentation
+% files (the "Software"), to deal in the Software without
+% restriction, including without limitation the rights to use,
+% copy, modify, merge, publish, distribute, sublicense, and/or sell
+% copies of the Software, and to permit persons to whom the
+% Software is furnished to do so, subject to the following
+% conditions:
+
+% The above copyright notice and this permission notice shall be
+% included in all copies or substantial portions of the Software.
+
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+% EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+% OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+% NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+% HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+% WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+% FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+% OTHER DEALINGS IN THE SOFTWARE.
+
+% Inspired by http://tex.stackexchange.com/questions/99765/document-class-for-reference-cards
 \documentclass[10pt]{article}
 \usepackage{fixltx2e}
 \usepackage[orthodox,l2tabu,abort]{nag}
@@ -57,7 +79,7 @@
 }
 
 
-% beginning of the document
+% Content definition
 \begin{document}
 \begin{multicols*}{3}
 \maketitle
@@ -127,9 +149,10 @@ If not, (optional) \textit{b2} block is used. \\
 \vfill \hrule\smallskip
 {\small This card may be freely distributed under
 the terms of the MIT licence ---
-Copyleft \textcopyleft\ \thedate{} by \theauthor{}.}
+Copyleft \textcopyleft\ \thedate{} by \href{http://kitakitsune.org}{\theauthor}.
 
 \url{https://github.com/Bystroushaak/SelfCheatSheet}
+}
 
 \end{multicols*}
 \end{document}
