@@ -45,7 +45,7 @@
 \usepackage{titlesec}
 \setcounter{secnumdepth}{0}
 \titlespacing{\section}{0pt}{0pt}{0pt}
-\titlespacing{\subsection}{0pt}{0pt}{0pt}
+\titlespacing{\subsection}{0pt}{5pt}{0pt}
 \usepackage{nopageno} % To keep \section from resetting page style
 
 \setlength{\parindent}{0pt} % disabling indentation by default
@@ -90,20 +90,22 @@ An \textit{object} consists from (possibly empty) set of \textit{slots} and (opt
 \vspace*{0.2cm}
 \texttt{(| slot1. slot2 | 'code')}
 
-or
+for object with code, or
 
-\texttt{(| | 'code')}
+\texttt{(| | 'code')} or \texttt{('code')}
 
-or
+for object with code, but no slots, or
 
 \texttt{(| slot1. slot2. slotN |)}
 
-or
+for object with slots, but no code, or
 
 \texttt{()}
+
+for empty object.
 \vspace*{0.2cm}
 
-Slots behave as key-value lookup table. \textit{code} is made from \textit{message sends} and \textit{literals}.
+Slots behave as key-value lookup table. \textit{Code} is a sequenece of \textit{expressions} (\textit{message sends} and \textit{literals}) separated by dots, and evaluated in order.
 
 \subsection{Block objects}
 \textit{Block objects} share syntax with \textit{objects}, except that square brackts are used instead of round:
@@ -112,9 +114,21 @@ Slots behave as key-value lookup table. \textit{code} is made from \textit{messa
 \texttt{[| slot1. slot2 | 'code']}
 \vspace*{0.2cm}
 
-\textit{Block objects} works as closures and supports return statement using \texttt{\^} preceding the returned value. If not used, last statement is returned.
+\textit{Block objects} works as closures and supports return statement using \texttt{\^} preceding the returned value. If not used, result of last \textit{expression} is returned.
 
 % \textit{code} defined in the blocks may be evaluated by sending \texttt{value:} message. % TODO: ověřit
+
+\subsection{Slot assignments}
+Slots can be assigned at the definition, either read only using \texttt{=} operator:
+
+\begin{verbatim}
+(| slot1 = 1 |)
+\end{verbatim}
+
+or rewritable using \texttt{<-} operator: % TODO: operator, really?
+\begin{verbatim}
+(| slot1 <- 1 |)
+\end{verbatim}
 
 \subsection{Message sends}
 
@@ -128,13 +142,12 @@ Slots behave as key-value lookup table. \textit{code} is made from \textit{messa
 As usual in Smalltalk-like languages, \textit{if condition} is implemented as everything else by sending messages, in this case to boolean-like objects:
 
 \vspace*{0.2cm}
-\begin{tabular}{ p{3.4cm} p{4cm} l l }
+\begin{tabular}{ p{70pt} p{140pt} l l }
 Command & Description \\ \hline
-\begin{verbatim}
-obj ifTrue: b1
+\begin{verbatim}obj ifTrue: b1
     False: b2
 \end{verbatim}
-& \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}.
+&\vspace*{0.1cm} \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}.
 If not, (optional) \textit{b2} block is used. \\
 \hline
 
