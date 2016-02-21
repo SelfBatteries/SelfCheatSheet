@@ -100,7 +100,7 @@ for object with code, but no slots, or
 
 for object with slots, but no code, or
 
-\texttt{()}
+\texttt{(| |)} or \texttt{()}
 
 for empty object.
 \vspace*{0.2cm}
@@ -114,7 +114,11 @@ Slots behave as key-value lookup table. \textit{Code} is a sequenece of \textit{
 \texttt{[| slot1. slot2 | 'code']}
 \vspace*{0.2cm}
 
+and so on.
+
 \textit{Block objects} works as closures and supports return statement using \texttt{\^} preceding the returned value. If not used, result of last \textit{expression} is returned.
+
+Another difference is that \texttt{self} slot is not present. Unresolved lookups are delegated to namespace surrounding the \textit{block object} at the time of creation.
 
 % \textit{code} defined in the blocks may be evaluated by sending \texttt{value:} message. % TODO: ověřit
 
