@@ -81,6 +81,9 @@
     basicstyle=\ttfamily,
     keywordstyle=\bfseries,
     showstringspaces=false,
+    breaklines=false,
+    breakatwhitespace=false,
+    columns=fullflexible,
 }
 
 
@@ -119,18 +122,28 @@ for empty object.
 
 Slots behave as key-value lookup table. \textit{Code} is a sequenece of \textit{expressions} (\textit{message sends} and \textit{literals}) separated by dots, and evaluated in order.
 
-\subsection{Block objects}
+\subsection{Block objects \textit{(closures)}}
 \textit{Block objects} share syntax with \textit{objects}, except that square brackts are used instead of round:
 
 \begin{lstlisting}
 [| slot1. slot2 | 'code']
 \end{lstlisting}
 
-\textit{Block objects} works as closures and supports return statement using \texttt{\^} preceding the returned value. If not used, result of last \textit{expression} is returned.
+\textit{Block objects} works as closures, which means, that \texttt{self} slot is not present. Unresolved lookups are delegated to namespace surrounding the \textit{block object} at the time of creation.
 
-Another difference is that \texttt{self} slot is not present. Unresolved lookups are delegated to namespace surrounding the \textit{block object} at the time of creation.
+Another difference is support of \textit{non-local return statement} using \texttt{\^} preceding the returned value. This returns the value not just from the closure, but also from the enclosing namespace.
 
-% \textit{code} defined in the blocks may be evaluated by sending \texttt{value:} message. % TODO: ověřit
+\begin{lstlisting}
+(|
+    x = 6.
+    non_zero = (
+        x >  ifTrue: [ ^ 'ok' ]
+             False: [ ^ 'nope' ]
+    )
+|)
+\end{lstlisting}
+
+\^{} doesn't just return from the closure in \texttt{[]}, but also from the surrounding \textit{method object}.
 
 \subsection{Slot assignments}
 Slots can be assigned at the definition, either read only using \texttt{=} operator:
@@ -161,13 +174,13 @@ obj message: argument
 
 (to the \textit{obj} send a \textit{message} with \textit{argument} as value).
 
-\textit{Block objects} take by default message \texttt{value}, which evaluates the code and returns the value. If the \textit{block object} takes (multiple) parameters, they may be supplied using \texttt{value:\ With:} message:
+\textit{Block objects} take by default message \texttt{value}, which evaluates the code and returns the value. If the \textit{block object} takes (multiple) parameters, they may be supplied using \texttt{value:\ With:} message pattern:
 
 \begin{lstlisting}
 obj value: x With: y .. With: z
 \end{lstlisting}
 
-pattern. Notice the uppercase first letters in \texttt{With:} message, which tells the Self interpreter, that this is still part of one message send, with multiple arguments.
+Notice the uppercase first letters in \texttt{With:} message, which tells the Self interpreter, that this is still part of one message send, with multiple arguments.
 
 \section{Control sequences}
 \subsection{If condition}
