@@ -158,7 +158,9 @@ obj message: argument
 
 (to the \textit{obj} send a \textit{message} with \textit{argument} as value).
 
-\textit{Block objects} take by default message \texttt{value}, which evaluates the code and returns the value. If the \textit{block object} takes (multiple) parameters, they may be supplied using \texttt{value:\ With:} message pattern:
+\textit{Block objects} take by default message \texttt{value}, which evaluates the code and returns the value.
+
+If the \textit{block object} takes (multiple) parameters, they may be supplied using \texttt{value:\ With:} message pattern:
 
 \begin{lstlisting}
 obj value: x With: y .. With: z
@@ -183,6 +185,47 @@ xe
 \end{lstlisting}
 
 Every object may also contain \texttt{parent*} slot, to which the lookups unresolved in \texttt{self} is delegated. This implements the inheritance.
+
+
+
+
+\subsection{Method slots}
+
+\textit{Method slots} are slots containing a code.
+
+\begin{lstlisting}
+(|
+    first = (printLine)
+|)
+\end{lstlisting}
+
+Code may take arguments:
+
+\begin{lstlisting}
+(|
+    first: = (| :arg | arg printLine)
+|)
+\end{lstlisting}
+
+Argument definition may be abbreviated to:
+
+\begin{lstlisting}
+(|
+    first: arg = (arg printLine)
+|)
+\end{lstlisting}
+
+or with multiple arguments:
+
+\begin{lstlisting}
+(|
+    first: x Second: y = (
+        x + y printLine.
+    )
+|)
+\end{lstlisting}
+
+Notice the uppercase in \textit{Second} slot name.
 
 
 
@@ -213,6 +256,7 @@ Another difference is support of \textit{non-local return statement} using \text
 
 
 
+\pagebreak
 \section{Control sequences}
 \subsection{If condition}
 
@@ -223,7 +267,7 @@ As usual in Smalltalk-like languages, \textit{if condition} is implemented as ev
 Command & Description \\ \hline
 \begin{lstlisting}
 obj ifTrue: b1
-    False: b2
+     False: b2
 \end{lstlisting}
 &\vspace*{0.1cm} \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}.
 If not, (optional) \textit{b2} block is used. \\
@@ -240,7 +284,7 @@ If not, (optional) \textit{b2} block is used. \\
 \vfill \hrule\smallskip
 {\small This card may be freely distributed under
 the terms of the MIT licence ---
-Copyleft \textcopyleft\ \thedate{} by \href{http://kitakitsune.org}{\theauthor}.
+Copyleft \textcopyleft\ \thedate{} \href{http://kitakitsune.org}{\theauthor}.
 
 \url{https://github.com/Bystroushaak/SelfCheatSheet}
 }
