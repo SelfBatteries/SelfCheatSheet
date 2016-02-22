@@ -95,23 +95,27 @@
 \section{Object syntax}
 An \textit{object} consists from (possibly empty) set of \textit{slots} and (optionally) \textit{code}.
 
+Slots behave as key-value lookup table for data or objects. \textit{Code} is a sequenece of \textit{expressions} (\textit{message sends} and \textit{literals}) separated by dots, and evaluated in order.
+
+Syntax is straightforward:
+
 \begin{lstlisting}
 (| slot1. slot2 | 'code')
 \end{lstlisting}
 
-for object with code, or
+for object with \textit{slots} and \textit{code}, or
 
 \begin{lstlisting}
 (| | 'code') or ('code')
 \end{lstlisting}
 
-for object with code, but no slots, or
+for object with \textit{code}, but no \textit{slots}, or
 
 \begin{lstlisting}
 (| slot1. slot2. slotN |)
 \end{lstlisting}
 
-for object with slots, but no code, or
+for object with \textit{slots}, but no \textit{code}, or
 
 \begin{lstlisting}
 (| |) or ()
@@ -120,7 +124,7 @@ for object with slots, but no code, or
 for empty object.
 \vspace*{0.2cm}
 
-Slots behave as key-value lookup table. \textit{Code} is a sequenece of \textit{expressions} (\textit{message sends} and \textit{literals}) separated by dots, and evaluated in order.
+
 
 \subsection{Block objects \textit{(closures)}}
 \textit{Block objects} share syntax with \textit{objects}, except that square brackts are used instead of round:
