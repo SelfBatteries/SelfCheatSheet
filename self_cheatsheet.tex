@@ -46,8 +46,9 @@
 \setcounter{secnumdepth}{0}
 \titlespacing{\section}{0pt}{0pt}{0pt}
 \titlespacing{\subsection}{0pt}{5pt}{0pt}
-\usepackage{nopageno} % To keep \section from resetting page style
+\setlength{\parskip}{2pt}
 
+\usepackage{nopageno} % To keep \section from resetting page style
 \setlength{\parindent}{0pt} % disabling indentation by default
 
 % Lists
@@ -55,14 +56,6 @@
 \newlist{ttdesc}{description}{1}
 \setlist[ttdesc]{font=\ttfamily,noitemsep}
 \usepackage{calc} % for \widthof
-
-% Code
-\usepackage{listings}
-\lstset{language=[LaTeX]TeX,
-    basicstyle=\itshape,
-    keywordstyle=\normalfont\ttfamily,
-    morekeywords={part,chapter,subsection,subsubsection,paragraph,subparagraph}
-}
 
 \usepackage{lipsum}
 
@@ -79,7 +72,19 @@
 }
 
 
-% Content definition
+% Set listing
+% https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+\usepackage{listings}
+\usepackage{pxfonts}
+
+\lstset{
+    basicstyle=\ttfamily,
+    keywordstyle=\bfseries,
+    showstringspaces=false,
+}
+
+
+% Content =====================================================================
 \begin{document}
 \begin{multicols*}{3}
 \maketitle
@@ -87,20 +92,27 @@
 \section{Object syntax}
 An \textit{object} consists from (possibly empty) set of \textit{slots} and (optionally) \textit{code}.
 
-\vspace*{0.2cm}
-\texttt{(| slot1. slot2 | 'code')}
+\begin{lstlisting}
+(| slot1. slot2 | 'code')
+\end{lstlisting}
 
 for object with code, or
 
-\texttt{(| | 'code')} or \texttt{('code')}
+\begin{lstlisting}
+(| | 'code') or ('code')
+\end{lstlisting}
 
 for object with code, but no slots, or
 
-\texttt{(| slot1. slot2. slotN |)}
+\begin{lstlisting}
+(| slot1. slot2. slotN |)
+\end{lstlisting}
 
 for object with slots, but no code, or
 
-\texttt{(| |)} or \texttt{()}
+\begin{lstlisting}
+(| |) or ()
+\end{lstlisting}
 
 for empty object.
 \vspace*{0.2cm}
@@ -110,11 +122,9 @@ Slots behave as key-value lookup table. \textit{Code} is a sequenece of \textit{
 \subsection{Block objects}
 \textit{Block objects} share syntax with \textit{objects}, except that square brackts are used instead of round:
 
-\vspace*{0.2cm}
-\texttt{[| slot1. slot2 | 'code']}
-\vspace*{0.2cm}
-
-and so on.
+\begin{lstlisting}
+[| slot1. slot2 | 'code']
+\end{lstlisting}
 
 \textit{Block objects} works as closures and supports return statement using \texttt{\^} preceding the returned value. If not used, result of last \textit{expression} is returned.
 
@@ -125,20 +135,39 @@ Another difference is that \texttt{self} slot is not present. Unresolved lookups
 \subsection{Slot assignments}
 Slots can be assigned at the definition, either read only using \texttt{=} operator:
 
-\begin{verbatim}
-(| slot1 = 1 |)
-\end{verbatim}
+\begin{lstlisting}
+(| slot = 1 |)
+\end{lstlisting}
 
 or rewritable using \texttt{<-} operator: % TODO: operator, really?
-\begin{verbatim}
-(| slot1 <- 1 |)
-\end{verbatim}
+
+\begin{lstlisting}
+(| slot <- 1 |)
+\end{lstlisting}
 
 \subsection{Message sends}
 
+\textit{Message sends} are evaluated from left to right. Object is on the left, messages on the right. Messages can be without arguments:
 
+\begin{lstlisting}
+obj message
+\end{lstlisting}
 
+(to the \textit{obj} send a \textit{message}), or with arguments:
 
+\begin{lstlisting}
+obj message: argument
+\end{lstlisting}
+
+(to the \textit{obj} send a \textit{message} with \textit{argument} as value).
+
+\textit{Block objects} take by default message \texttt{value}, which evaluates the code and returns the value. If the \textit{block object} takes (multiple) parameters, they may be supplied using \texttt{value:\ With:} message:
+
+\begin{lstlisting}
+obj value: x With: y .. With: z
+\end{lstlisting}
+
+pattern. Notice the uppercase first letters in \texttt{With:} message, which tells the Self interpreter, that this is still part of one message send, with multiple arguments.
 
 \section{Control sequences}
 \subsection{If condition}
@@ -148,9 +177,10 @@ As usual in Smalltalk-like languages, \textit{if condition} is implemented as ev
 \vspace*{0.2cm}
 \begin{tabular}{ p{70pt} p{140pt} l l }
 Command & Description \\ \hline
-\begin{verbatim}obj ifTrue: b1
+\begin{lstlisting}
+obj ifTrue: b1
     False: b2
-\end{verbatim}
+\end{lstlisting}
 &\vspace*{0.1cm} \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}.
 If not, (optional) \textit{b2} block is used. \\
 \hline
