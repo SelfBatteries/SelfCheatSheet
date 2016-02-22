@@ -122,32 +122,9 @@ for object with \textit{slots}, but no \textit{code}, or
 \end{lstlisting}
 
 for empty object.
-\vspace*{0.2cm}
 
 
 
-\subsection{Block objects \textit{(closures)}}
-\textit{Block objects} share syntax with \textit{objects}, except that square brackts are used instead of round:
-
-\begin{lstlisting}
-[| slot1. slot2 | 'code']
-\end{lstlisting}
-
-\textit{Block objects} works as closures, which means, that \texttt{self} slot is not present. Unresolved lookups are delegated to namespace surrounding the \textit{block object} at the time of creation.
-
-Another difference is support of \textit{non-local return statement} using \texttt{\^} preceding the returned value. This returns the value not just from the closure, but also from the enclosing namespace.
-
-\begin{lstlisting}
-(|
-    x = 6.
-    non_zero = (
-        x >  ifTrue: [ ^ 'ok' ]
-             False: [ ^ 'nope' ]
-    )
-|)
-\end{lstlisting}
-
-\^{} doesn't just return from the closure in \texttt{[]}, but also from the surrounding \textit{method object}.
 
 \subsection{Slot assignments}
 Slots can be assigned at the definition, either read only using \texttt{=} operator:
@@ -161,6 +138,9 @@ or rewritable using \texttt{<-} operator: % TODO: operator, really?
 \begin{lstlisting}
 (| slot <- 1 |)
 \end{lstlisting}
+
+
+
 
 \subsection{Message sends}
 
@@ -185,6 +165,53 @@ obj value: x With: y .. With: z
 \end{lstlisting}
 
 Notice the uppercase first letters in \texttt{With:} message, which tells the Self interpreter, that this is still part of one message send, with multiple arguments.
+
+
+
+
+\subsection{Special slots}
+Every object has automatically created slot named \texttt{self}, pointing to object itself. Unlike other languages, \texttt{self} may be ommited, in \textit{message sends}, so
+
+\begin{lstlisting}
+self xe
+\end{lstlisting}
+
+is same thing as
+
+\begin{lstlisting}
+xe
+\end{lstlisting}
+
+Every object may also contain \texttt{parent*} slot, to which the lookups unresolved in \texttt{self} is delegated. This implements the inheritance.
+
+
+
+
+\subsection{Block objects \textit{(closures)}}
+\textit{Block objects} share syntax with \textit{objects}, except that square brackts are used instead of round:
+
+\begin{lstlisting}
+[| slot1. slot2 | 'code']
+\end{lstlisting}
+
+\textit{Block objects} works as closures, which means, that \texttt{self} slot is not present. Unresolved lookups are delegated via \texttt{*parent} to namespace surrounding the \textit{block object} at the time of creation.
+
+Another difference is support of \textit{non-local return statement} using \texttt{\^} preceding the returned value. This returns the value not just from the closure, but also from the enclosing namespace.
+
+\begin{lstlisting}
+(|
+    x = 6.
+    non_zero = (
+        x >  ifTrue: [ ^ 'ok' ]
+             False: [ ^ 'nope' ]
+    )
+|)
+\end{lstlisting}
+
+\^{} doesn't just return from the closure in \texttt{[]}, but also from the surrounding \textit{method object}.
+
+
+
 
 \section{Control sequences}
 \subsection{If condition}
