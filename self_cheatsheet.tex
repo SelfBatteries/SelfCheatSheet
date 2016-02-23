@@ -142,9 +142,9 @@ or rewritable using \texttt{<-} operator: % TODO: operator, really?
 
 
 
-\subsection{Message sends}
+\subsection{Messages}
 
-\textit{Message sends} are evaluated from left to right. Object is on the left, messages on the right. Messages can be without arguments:
+\textit{Messages} are evaluated from left to right. Object is on the left, messages on the right. Messages can be without arguments:
 
 \begin{lstlisting}
 obj message
@@ -184,6 +184,18 @@ is same thing as
 xe
 \end{lstlisting}
 
+Description comments may be provided in the \textit{annotation slot}:
+
+\begin{lstlisting}
+(| {} = 'Annotation string.' |)
+\end{lstlisting}
+
+or
+
+\begin{lstlisting}
+(| { 'Annotation string.' slot. another. } |)
+\end{lstlisting}
+
 Every object may also contain \texttt{parent*} slot, to which the lookups unresolved in \texttt{self} is delegated. This implements the inheritance.
 
 
@@ -191,31 +203,25 @@ Every object may also contain \texttt{parent*} slot, to which the lookups unreso
 
 \subsection{Method slots}
 
-\textit{Method slots} are slots containing a code.
+\textit{Method slots} are slots containing a code. \textit{Slots} without arguments are called \textit{unary}.
 
 \begin{lstlisting}
-(|
-    first = (printLine)
-|)
+(| first = (printLine) |)
 \end{lstlisting}
 
-Code may take arguments:
+Slots with one argument is called \textit{binary}:
 
 \begin{lstlisting}
-(|
-    first: = (| :arg | arg printLine)
-|)
+(| first: = (| :arg | arg printLine) |)
 \end{lstlisting}
 
-Argument definition may be abbreviated to:
+Which is equivalent to:
 
 \begin{lstlisting}
-(|
-    first: arg = (arg printLine)
-|)
+(| first: arg = (arg printLine) |)
 \end{lstlisting}
 
-or with multiple arguments:
+It is also possible to create \textit{keyword} slots with multiple arguments:
 
 \begin{lstlisting}
 (|
@@ -245,8 +251,8 @@ Another difference is support of \textit{non-local return statement} using \text
 (|
     x = 6.
     non_zero = (
-        x >  ifTrue: [ ^ 'ok' ]
-             False: [ ^ 'nope' ]
+        x > 5 ifTrue: [ ^ 'ok' ]
+               False: [ ^ 'nope' ]
     )
 |)
 \end{lstlisting}
