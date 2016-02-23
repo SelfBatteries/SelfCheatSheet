@@ -178,13 +178,13 @@ Notice the uppercase first letters in \texttt{With:} message, which tells the Se
 Every object has automatically created slot named \texttt{self}, pointing to object itself. Unlike other languages, \texttt{self} may be ommited, in \textit{message sends}, so
 
 \begin{lstlisting}
-self xe
+self message
 \end{lstlisting}
 
 is same thing as
 
 \begin{lstlisting}
-xe
+message
 \end{lstlisting}
 
 
@@ -246,6 +246,8 @@ Invocation is possible using the \textit{binary message}:
 obj first: 1
 \end{lstlisting}
 
+\textit{Binary slots} are also used with operators.
+
 
 
 \subsubsection{Keyword slots}
@@ -260,6 +262,7 @@ Notice the uppercase \textit{S} in \texttt{Second}. Invocation is done via \text
 \begin{lstlisting}
 obj first: 3 Second: 5
 \end{lstlisting}
+
 
 
 
@@ -282,10 +285,8 @@ Another difference is support of \textit{non-local return statement} using \text
 \begin{lstlisting}
 (|
     x = 6.
-    non_zero = (
-        x > 5 ifTrue: [ ^ 'ok' ]
-               False: [ ^ 'nope' ]
-    )
+    non_zero = (x > 5 ifTrue: [ ^ 'ok' ]
+                       False: [ ^ 'nope' ])
 |)
 \end{lstlisting}
 
@@ -294,23 +295,64 @@ Another difference is support of \textit{non-local return statement} using \text
 
 
 
-\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagebreak %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Traits}
+
+\section{Mixins}
+
 \section{Control sequences}
 \subsection{If condition}
 
-As usual in Smalltalk-like languages, \textit{if condition} is implemented as everything else by sending messages, in this case to boolean-like objects:
+As usual in Smalltalk-like languages, \textit{if condition} is implemented as everything else by sending messages, in this case to boolean (or boolean traits) objects:
 
 \vspace*{0.2cm}
+
 \begin{tabular}{ p{70pt} p{140pt} l l }
 Command & Description \\ \hline
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lstlisting}
+obj ifTrue: b
+\end{lstlisting}
+&\vspace*{0.25cm}
+
+Execute \texttt{b} if the \textit{obj} is \texttt{true}.
+
+\\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lstlisting}
+obj ifFalse: b
+\end{lstlisting}
+&\vspace*{0.25cm}
+
+Execute \texttt{b} if the \textit{obj} is \texttt{false}.
+
+\\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{lstlisting}
 obj ifTrue: b1
      False: b2
 \end{lstlisting}
-&\vspace*{0.1cm} \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}.
-If not, (optional) \textit{b2} block is used. \\
-\hline
+&\vspace*{0.1cm}
 
+\textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}.
+If not, (optional) \textit{b2} block is used.
+
+\\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{lstlisting}
+obj ifFalse: b1
+     True: b2
+\end{lstlisting}
+&\vspace*{0.4cm}
+
+Negative of previous.
+
+\\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{tabular}
 
