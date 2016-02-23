@@ -45,7 +45,8 @@
 \usepackage{titlesec}
 \setcounter{secnumdepth}{0}
 \titlespacing{\section}{0pt}{0pt}{0pt}
-\titlespacing{\subsection}{0pt}{5pt}{0pt}
+\titlespacing{\subsection}{0pt}{3pt}{0pt}
+\titlespacing{\subsubsection}{0pt}{0pt}{0pt}
 \setlength{\parskip}{2pt}
 
 \usepackage{nopageno} % To keep \section from resetting page style
@@ -172,6 +173,8 @@ Notice the uppercase first letters in \texttt{With:} message, which tells the Se
 
 
 \subsection{Special slots}
+
+\subsubsection{\texttt{self} slot}
 Every object has automatically created slot named \texttt{self}, pointing to object itself. Unlike other languages, \texttt{self} may be ommited, in \textit{message sends}, so
 
 \begin{lstlisting}
@@ -184,6 +187,8 @@ is same thing as
 xe
 \end{lstlisting}
 
+
+\subsubsection{Annotation slot}
 Description comments may be provided in the \textit{annotation slot}:
 
 \begin{lstlisting}
@@ -196,44 +201,71 @@ or
 (| { 'Annotation string.' slot. another. } |)
 \end{lstlisting}
 
-Every object may also contain \texttt{parent*} slot, to which the lookups unresolved in \texttt{self} is delegated. This implements the inheritance.
+
+\subsubsection{\texttt{parent*} slot}
+Every object may also contain \texttt{parent*} slot (star is mandatory), to which the lookups unresolved in \texttt{self} slot is delegated. This implements the inheritance.
 
 
 
 
 \subsection{Method slots}
 
-\textit{Method slots} are slots containing a code. \textit{Slots} without arguments are called \textit{unary}.
+\textit{Method slots} is the storage for the code in objects.
+
+\subsubsection{Unary slots}
+Code \textit{slots} without arguments are called \textit{unary}.
 
 \begin{lstlisting}
 (| first = (printLine) |)
 \end{lstlisting}
 
+This \textit{method slot} could be invoked by sending \textit{unary} message:
+
+\begin{lstlisting}
+obj first
+\end{lstlisting}
+
+
+
+\subsubsection{Binary slots}
 Slots with one argument is called \textit{binary}:
 
 \begin{lstlisting}
 (| first: = (| :arg | arg printLine) |)
 \end{lstlisting}
 
-Which is equivalent to:
+Which has shorter equivalent:
 
 \begin{lstlisting}
 (| first: arg = (arg printLine) |)
 \end{lstlisting}
 
+Invocation is possible using the \textit{binary message}:
+
+\begin{lstlisting}
+obj first: 1
+\end{lstlisting}
+
+
+
+\subsubsection{Keyword slots}
 It is also possible to create \textit{keyword} slots with multiple arguments:
 
 \begin{lstlisting}
-(|
-    first: x Second: y = (
-        x + y printLine.
-    )
-|)
+(| first: x Second: y = (x + y printLine.) |)
 \end{lstlisting}
 
-Notice the uppercase in \textit{Second} slot name.
+Notice the uppercase \textit{S} in \texttt{Second}. Invocation is done via \textit{keyword message}:
+
+\begin{lstlisting}
+obj first: 3 Second: 5
+\end{lstlisting}
 
 
+
+\subsubsection{Priorities}
+
+Constant definition \textgreater{} Unary \textgreater{} Binary \textgreater{} Keyword messages. Constant = self \textbar{} number \textbar{} string \textbar{} object.
 
 
 \subsection{Block objects \textit{(closures)}}
@@ -243,7 +275,7 @@ Notice the uppercase in \textit{Second} slot name.
 [| slot1. slot2 | 'code']
 \end{lstlisting}
 
-\textit{Block objects} works as closures, which means, that \texttt{self} slot is not present. Unresolved lookups are delegated via \texttt{*parent} to namespace surrounding the \textit{block object} at the time of creation.
+\textit{Block objects} work as closures, which means, that \texttt{self} slot is not present. Unresolved lookups are delegated via \texttt{parent*} to namespace surrounding the \textit{block object} at the time of creation.
 
 Another difference is support of \textit{non-local return statement} using \texttt{\^} preceding the returned value. This returns the value not just from the closure, but also from the enclosing namespace.
 
