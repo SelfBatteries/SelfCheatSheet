@@ -101,13 +101,13 @@ Slots behave as key-value lookup table for data or objects. \textit{Code} is a s
 Syntax is straightforward:
 
 \begin{lstlisting}
-(| slot1. slot2 | 'code')
+(| slot1. slot2 | 'code' printLine. 'str')
 \end{lstlisting}
 
 for object with \textit{slots} and \textit{code}, or
 
 \begin{lstlisting}
-(| | 'code') or ('code')
+(| | 'this is str') or ('this is str')
 \end{lstlisting}
 
 for object with \textit{code}, but no \textit{slots}, or
@@ -123,6 +123,15 @@ for object with \textit{slots}, but no \textit{code}, or
 \end{lstlisting}
 
 for empty object.
+
+
+
+\subsection{Comments}
+Comments use double quotes and are ignored by parser. See \textit{Annotations slots} in subsection \textit{Special slots}.
+
+\begin{lstlisting}
+("empty object")
+\end{lstlisting}
 
 
 
@@ -158,16 +167,6 @@ obj message: argument
 \end{lstlisting}
 
 (to the \textit{obj} send a \textit{message} with \textit{argument} as value).
-
-\textit{Block objects} take by default message \texttt{value}, which evaluates the code and returns the value.
-
-If the \textit{block object} takes (multiple) parameters, they may be supplied using \texttt{value:\ With:} message pattern:
-
-\begin{lstlisting}
-obj value: x With: y .. With: z
-\end{lstlisting}
-
-Notice the uppercase first letters in \texttt{With:} message, which tells the Self interpreter, that this is still part of one message send, with multiple arguments.
 
 
 
@@ -246,7 +245,7 @@ Invocation is possible using the \textit{binary message}:
 obj first: 1
 \end{lstlisting}
 
-\textit{Binary slots} are also used with operators.
+\textit{Binary slots} are also used with as operators (one or more characters from \texttt{!@\#\$\%\^{}\&*-+=\textasciitilde/?\textless\textgreater,;|'\textbackslash{}} set).
 
 
 
@@ -265,10 +264,11 @@ obj first: 3 Second: 5
 
 
 
-
 \subsubsection{Priorities}
 
 Constant definition \textgreater{} Unary \textgreater{} Binary \textgreater{} Keyword messages. Constant = self \textbar{} number \textbar{} string \textbar{} object.
+
+
 
 
 \subsection{Block objects \textit{(closures)}}
@@ -293,6 +293,18 @@ Another difference is support of \textit{non-local return statement} using \text
 \^{} doesn't just return from the closure in \texttt{[]}, but also from the surrounding \textit{method object}.
 
 
+\subsubsection{Block messages}
+\textit{Block objects} take by default message \texttt{value}, which evaluates the code and returns the value.
+
+If the \textit{block object} takes (multiple) parameters, they may be supplied using \texttt{value:\ With:} message pattern:
+
+\begin{lstlisting}
+block_obj value: x With: y .. With: z
+\end{lstlisting}
+
+Notice the uppercase first letters in \texttt{With:} message, which tells the Self interpreter, that this is still part of one message send, with multiple arguments.
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -300,6 +312,25 @@ Another difference is support of \textit{non-local return statement} using \text
 \section{Traits}
 
 \section{Mixins}
+
+
+\section{Resends}
+\textit{Resends} allows you to delegate the messages to the upper branches of OOP tree. Resend messages are equivalent of \textit{super} calls in other languages.
+
+Syntactically, \textit{resends} are implemented using \textit{resend.} prefix on resended messages:
+
+\begin{lstlisting}
+resend.unary
+resend.+ 1
+resend.keyword: 1 Another: 2
+\end{lstlisting}
+
+You may also use \textit{directed resends}, targeting speicific parent:
+
+\begin{lstlisting}
+intParent.+ 1
+otherParent.keyword: 1 Another: 2
+\end{lstlisting}
 
 \section{Control sequences}
 \subsection{If condition}
