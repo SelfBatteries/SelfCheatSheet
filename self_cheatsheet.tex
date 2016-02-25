@@ -94,6 +94,7 @@
 \maketitle
 
 \section{Object syntax}
+
 An \textit{object} consists from (possibly empty) set of \textit{slots} and (optionally) \textit{code}.
 
 Slots behave as key-value lookup table for data or objects. \textit{Code} is a sequenece of \textit{expressions} (\textit{message sends} and \textit{literals}) separated by dots, and evaluated in order.
@@ -127,6 +128,7 @@ for empty object.
 
 
 \subsection{Comments}
+
 Comments use double quotes and are ignored by parser. See \textit{Annotations slots} in subsection \textit{Special slots}.
 
 \begin{lstlisting}
@@ -137,6 +139,7 @@ Comments use double quotes and are ignored by parser. See \textit{Annotations sl
 
 
 \subsection{Slot assignments}
+
 Slots can be assigned at the definition, either read only using \texttt{=} operator:
 
 \begin{lstlisting}
@@ -188,6 +191,7 @@ message
 
 
 \subsubsection{Annotation slot}
+
 Description comments may be provided in the \textit{annotation slot}:
 
 \begin{lstlisting}
@@ -218,7 +222,7 @@ Code \textit{slots} without arguments are called \textit{unary}.
 (| first = (printLine) |)
 \end{lstlisting}
 
-This \textit{method slot} could be invoked by sending \textit{unary} message:
+This \textit{method slot} can be invoked by sending \textit{unary} message:
 
 \begin{lstlisting}
 obj first
@@ -227,6 +231,7 @@ obj first
 
 
 \subsubsection{Binary slots}
+
 Slots with one argument is called \textit{binary}:
 
 \begin{lstlisting}
@@ -250,6 +255,7 @@ obj first: 1
 
 
 \subsubsection{Keyword slots}
+
 It is also possible to create \textit{keyword} slots with multiple arguments:
 
 \begin{lstlisting}
@@ -272,6 +278,7 @@ Constant definition \textgreater{} Unary \textgreater{} Binary \textgreater{} Ke
 
 
 \subsection{Block objects \textit{(closures)}}
+
 \textit{Block objects} share syntax with \textit{objects}, except that square brackts are used instead of round:
 
 \begin{lstlisting}
@@ -286,7 +293,7 @@ Another difference is support of \textit{non-local return statement} using \text
 (|
     x = 6.
     non_zero = (x > 5 ifTrue: [ ^ 'ok' ]
-                       False: [ ^ 'nope' ])
+                         False: [ ^ 'nope' ])
 |)
 \end{lstlisting}
 
@@ -294,6 +301,7 @@ Another difference is support of \textit{non-local return statement} using \text
 
 
 \subsubsection{Block messages}
+
 \textit{Block objects} take by default message \texttt{value}, which evaluates the code and returns the value.
 
 If the \textit{block object} takes (multiple) parameters, they may be supplied using \texttt{value:\ With:} message pattern:
@@ -302,22 +310,35 @@ If the \textit{block object} takes (multiple) parameters, they may be supplied u
 block_obj value: x With: y .. With: z
 \end{lstlisting}
 
-Notice the uppercase first letters in \texttt{With:} message, which tells the Self interpreter, that this is still part of one message send, with multiple arguments.
+Notice the upper-case first letters in \texttt{With:} message, which tells the Self interpreter, that this is still part of one message send, with multiple arguments.
 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Traits}
+\section{Namespaces}
 
-\section{Mixins}
+\subsection{Traits}
+Objects with shared behaviour, which is used by pointing \texttt{parent*} slots to them. This is analogical to \textit{sub-classing} in other languages.
+
+
+
+\subsection{Mixins}
+
+Small objects filled with shared code. This code doesn't contain \texttt{parent*} slot, and it is thus not directly part of the OOP tree. Approximate analogy to other languages would be interface with implementation.
+
+
+
+\subsection{Globals}
+Prototype objects and \textit{oddballs} (unique singletons) like \texttt{true}, \texttt{false}, \texttt{nil}..
 
 
 \section{Resends}
-\textit{Resends} allows you to delegate the messages to the upper branches of OOP tree. Resend messages are equivalent of \textit{super} calls in other languages.
 
-Syntactically, \textit{resends} are implemented using \textit{resend.} prefix on resended messages:
+\textit{Resends} allows you to delegate the messages to the parent branches of OOP tree. Resend messages are equivalent of \textit{super} calls in other languages.
+
+Syntactically, \textit{resends} are implemented using \textit{resend.} prefix for resent messages:
 
 \begin{lstlisting}
 resend.unary
@@ -325,7 +346,7 @@ resend.+ 1
 resend.keyword: 1 Another: 2
 \end{lstlisting}
 
-You may also use \textit{directed resends}, targeting speicific parent:
+You may also use \textit{directed resends}, targeting specific parent:
 
 \begin{lstlisting}
 intParent.+ 1
@@ -339,6 +360,7 @@ As usual in Smalltalk-like languages, \textit{if condition} is implemented as ev
 
 \vspace*{0.2cm}
 
+\small{
 \begin{tabular}{ p{70pt} p{140pt} l l }
 Command & Description \\ \hline
 
@@ -381,21 +403,23 @@ obj ifFalse: b1
 \end{lstlisting}
 &\vspace*{0.4cm}
 
-Negative of previous.
+Opposite of previous.
 
 \\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{tabular}
-
+}
 
 
 
 
 % Footer
 \vfill \hrule\smallskip
-{\small This card may be freely distributed under
+
+{\small
+This card may be freely distributed under
 the terms of the MIT licence ---
-Copyleft \textcopyleft\ \thedate{} \href{http://kitakitsune.org}{\theauthor}.
+Copyleft \textcopyleft\ \thedate{} \href{http://kitakitsune.org}{\theauthor}. Version 1.0.
 
 \url{https://github.com/Bystroushaak/SelfCheatSheet}
 }
