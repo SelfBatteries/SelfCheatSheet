@@ -29,8 +29,11 @@
 \usepackage{hyperref}
 
 % Page layout
-\usepackage[landscape,margin=0.5in]{geometry}
+\usepackage[a4paper,landscape,margin=1cm]{geometry}
+
 \usepackage{multicol}
+\setlength{\columnsep}{0.5cm}
+
 
 % Title area
 \usepackage{titling} % Allows for use of date, author, etc. after \maketitle
@@ -97,7 +100,7 @@
 
 An \textit{object} consists from (possibly empty) set of \textit{slots} and (optionally) \textit{code}.
 
-Slots behave as key-value lookup table for data or objects. \textit{Code} is a sequenece of \textit{expressions} (\textit{message sends} and \textit{literals}) separated by dots, and evaluated in order.
+Slots behave as key-value lookup table for data or objects. \textit{Code} is a sequence of \textit{expressions} (\textit{message sends} and \textit{literals}) separated by dots, and evaluated in order.
 
 Syntax is straightforward:
 
@@ -177,7 +180,7 @@ obj message: argument
 \subsection{Special slots}
 
 \subsubsection{\texttt{self} slot}
-Every object has automatically created slot named \texttt{self}, pointing to object itself. Unlike other languages, \texttt{self} may be ommited, in \textit{message sends}, so
+Every object has automatically created slot named \texttt{self}, pointing to object itself. Unlike other languages, \texttt{self} may be omitted, in \textit{message sends}, so
 
 \begin{lstlisting}
 self message
@@ -192,7 +195,7 @@ message
 
 \subsubsection{Annotation slot}
 
-Description comments may be provided in the \textit{annotation slot}:
+Additional informations may be provided in the \textit{annotation slot}:
 
 \begin{lstlisting}
 (| {} = 'Annotation string.' |)
@@ -262,7 +265,7 @@ It is also possible to create \textit{keyword} slots with multiple arguments:
 (| first: x Second: y = (x + y printLine.) |)
 \end{lstlisting}
 
-Notice the uppercase \textit{S} in \texttt{Second}. Invocation is done via \textit{keyword message}:
+Notice the upper-case \textit{S} in \texttt{Second}. Invocation is done via \textit{keyword message}:
 
 \begin{lstlisting}
 obj first: 3 Second: 5
@@ -353,35 +356,38 @@ intParent.+ 1
 otherParent.keyword: 1 Another: 2
 \end{lstlisting}
 
+
+
+
 \section{Control sequences}
-\subsection{If condition}
+\subsection{Conditionals}
 
 As usual in Smalltalk-like languages, \textit{if condition} is implemented as everything else by sending messages, in this case to boolean (or boolean traits) objects:
 
 \vspace*{0.2cm}
 
-\small{
-\begin{tabular}{ p{70pt} p{140pt} l l }
-Command & Description \\ \hline
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\small{\begin{tabular}{ p{70pt} p{140pt} l l }
+Message & Description
+\\ \hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{lstlisting}
 obj ifTrue: b
 \end{lstlisting}
 &\vspace*{0.25cm}
-
 Execute \texttt{b} if the \textit{obj} is \texttt{true}.
-
 \\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tabular}}
 
+
+
+\small{\begin{tabular}{ p{70pt} p{140pt} l l }
+
+\\ \hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{lstlisting}
 obj ifFalse: b
 \end{lstlisting}
 &\vspace*{0.25cm}
-
 Execute \texttt{b} if the \textit{obj} is \texttt{false}.
-
 \\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -390,10 +396,8 @@ obj ifTrue: b1
      False: b2
 \end{lstlisting}
 &\vspace*{0.1cm}
-
 \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}.
 If not, (optional) \textit{b2} block is used.
-
 \\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -402,13 +406,91 @@ obj ifFalse: b1
      True: b2
 \end{lstlisting}
 &\vspace*{0.4cm}
-
 Opposite of previous.
-
 \\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{tabular}}
 
-\end{tabular}
-}
+
+
+
+\subsection{Loops}
+Looping is implemented as sending various loop messages to \textit{block objects}:
+
+\vspace*{0.2cm}
+\hrule
+\vspace*{0.03cm}
+\hrule
+
+\begin{lstlisting}
+[ ... ] loop
+\end{lstlisting}
+Loop over the \textit{block} indefinitely.
+
+\vspace*{0.2cm}
+\hrule
+
+\begin{lstlisting}
+[ proceed ] whileTrue: [ ... ]
+\end{lstlisting}
+Loop while \texttt{proceed} is \texttt{true}.
+
+\vspace*{0.2cm}
+\hrule
+
+\begin{lstlisting}
+[ quit ] whileFalse: [ ... ]
+\end{lstlisting}
+Loop while \texttt{quit} is \texttt{false}.
+
+\vspace*{0.2cm}
+\hrule
+
+\begin{lstlisting}
+[ ... ] untilTrue: [ quit ]
+\end{lstlisting}
+Loop until \texttt{quit} is \texttt{true}. Loop at least once.
+
+\vspace*{0.2cm}
+\hrule
+
+\begin{lstlisting}
+[ ... ] untilFalse: [ proceed ]
+\end{lstlisting}
+Loop until \texttt{proceed} is \texttt{false}. Loop at least once.
+
+\vspace*{0.2cm}
+\hrule
+
+\begin{lstlisting}
+[| :exit | ... cond ifTrue: exit ... ] loopExit
+\end{lstlisting}
+Loop until the \texttt{exit} parameter is not evaluated.
+
+\vspace*{0.2cm}
+\hrule
+
+\begin{lstlisting}
+[
+    | :exit |
+    ...
+    cond ifTrue: [ exit value: expr ]
+] loopExitValue
+\end{lstlisting}
+Loop until the \texttt{exit} parameter is not evaluated. Allows to return the \texttt{value} with the exit from the loop.
+
+\vspace*{0.2cm}
+\hrule
+\vspace*{0.03cm}
+\hrule
+
+
+
+
+
+
+
+
+
 
 
 
