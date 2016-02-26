@@ -132,7 +132,7 @@ for empty object.
 
 \subsection{Comments}
 
-Comments use double quotes and are ignored by parser. See \textit{Annotations slots} in subsection \textit{Special slots}.
+Comments use double quotes and are ignored by parser. See \textit{Annotation slot} in subsection \textit{Special slots}.
 
 \begin{lstlisting}
 ("empty object")
@@ -282,7 +282,7 @@ Constant definition \textgreater{} Unary \textgreater{} Binary \textgreater{} Ke
 
 \subsection{Block objects \textit{(closures)}}
 
-\textit{Block objects} share syntax with \textit{objects}, except that square brackts are used instead of round:
+\textit{Block objects} share syntax with \textit{objects}, except that square brackets are used instead of round:
 
 \begin{lstlisting}
 [| slot1. slot2 | 'code']
@@ -320,49 +320,14 @@ Notice the upper-case first letters in \texttt{With:} message, which tells the S
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagebreak %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Namespaces}
-
-\subsection{Traits}
-Objects with shared behaviour, which is used by pointing \texttt{parent*} slots to them. This is analogical to \textit{sub-classing} in other languages.
-
-
-
-\subsection{Mixins}
-
-Small objects filled with shared code. This code doesn't contain \texttt{parent*} slot, and it is thus not directly part of the OOP tree. Approximate analogy to other languages would be interface with implementation.
-
-
-
-\subsection{Globals}
-Prototype objects and \textit{oddballs} (unique singletons) like \texttt{true}, \texttt{false}, \texttt{nil}..
-
-
-\section{Resends}
-
-\textit{Resends} allows you to delegate the messages to the parent branches of OOP tree. Resend messages are equivalent of \textit{super} calls in other languages.
-
-Syntactically, \textit{resends} are implemented using \textit{resend.} prefix for resent messages:
-
-\begin{lstlisting}
-resend.unary
-resend.+ 1
-resend.keyword: 1 Another: 2
-\end{lstlisting}
-
-You may also use \textit{directed resends}, targeting specific parent:
-
-\begin{lstlisting}
-intParent.+ 1
-otherParent.keyword: 1 Another: 2
-\end{lstlisting}
-
-
-
-
 \section{Control sequences}
-\subsection{Conditionals}
+As usual in Smalltalk-like languages, \textit{control sequences} are implemented using message sends combined with block.
 
-As usual in Smalltalk-like languages, \textit{if condition} is implemented as everything else by sending messages, in this case to boolean (or boolean traits) objects:
+
+
+
+\subsection{Conditionals}
+\textit{If condition} works by using messages defined in boolean (or boolean traits) objects:
 
 \vspace*{0.2cm}
 
@@ -374,15 +339,8 @@ obj ifTrue: b
 \end{lstlisting}
 &\vspace*{0.25cm}
 Execute \texttt{b} if the \textit{obj} is \texttt{true}.
-\\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\end{tabular}}
-
-
-
-\small{\begin{tabular}{ p{70pt} p{140pt} l l }
 
 \\ \hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{lstlisting}
 obj ifFalse: b
 \end{lstlisting}
@@ -406,8 +364,8 @@ obj ifFalse: b1
      True: b2
 \end{lstlisting}
 &\vspace*{0.4cm}
-Opposite of previous.
-\\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Opposite of previous. 
+\\ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{tabular}}
 
 
@@ -483,6 +441,44 @@ Loop until the \texttt{exit} parameter is not evaluated. Allows to return the \t
 \vspace*{0.03cm}
 \hrule
 
+
+
+
+\section{Namespaces}
+
+\subsection{Traits}
+Objects with shared behaviour, which is used by pointing \texttt{parent*} slots to them. This is analogical to \textit{sub-classing} in other languages.
+
+
+
+\subsection{Mixins}
+
+Small objects filled with shared code. This code doesn't contain \texttt{parent*} slot, and it is thus not directly part of the OOP tree. Approximate analogy to other languages would be interface with implementation.
+
+
+
+\subsection{Globals}
+Prototype objects and \textit{oddballs} (unique singletons) like \texttt{true}, \texttt{false}, \texttt{nil}..
+
+
+\section{Resends}
+
+\textit{Resends} allows you to delegate the messages to the parent branches of OOP tree. Resend messages are equivalent of \textit{super} calls in other languages.
+
+Syntactically, \textit{resends} are implemented using \textit{resend.} prefix for resent messages:
+
+\begin{lstlisting}
+resend.unary
+resend.+ 1
+resend.keyword: 1 Another: 2
+\end{lstlisting}
+
+You may also use \textit{directed resends}, targeting specific parent:
+
+\begin{lstlisting}
+intParent.+ 1
+otherParent.keyword: 1 Another: 2
+\end{lstlisting}
 
 
 
