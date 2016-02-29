@@ -135,7 +135,7 @@ for empty object.
 Comments use double quotes and are ignored by parser. See \textit{Annotation slot} in subsection \textit{Special slots}.
 
 \begin{lstlisting}
-("empty object")
+("empty object same as () or (| |)")
 \end{lstlisting}
 
 
@@ -435,6 +435,42 @@ Loop until the \texttt{exit} parameter is not evaluated.
 ] loopExitValue
 \end{lstlisting}
 Loop until the \texttt{exit} parameter is not evaluated. Allows to return the \texttt{value} with the exit from the loop.
+
+\vspace{0.2cm}
+\hrule
+\vspace{0.03cm}
+\hrule
+
+\subsubsection{integerIteration loops}
+
+There is also loops defined as message sends to integers:
+
+\begin{lstlisting}
+numObj do: block
+\end{lstlisting}
+
+Do the \texttt{block} \textit{numObj} times.
+
+\vspace*{0.2cm}
+\hrule
+
+\begin{lstlisting}
+numObj to: end Do: block
+\end{lstlisting}
+
+Do the \texttt{block} each time counting from \textit{numObj} to \texttt{end}. For example \texttt{5\ to:\ 8\ Do:\ [|\ :i\ |\ i\ print]} will print \texttt{5678}.
+
+Following messages are all variations of this message:
+
+\begin{lstlisting}
+numObj to: By: Do:
+numObj to: ByNegative: Do:
+numObj to: ByPositive: Do:
+numObj upTo: Do:
+numObj upTo: By: Do:
+numObj downTo: Do:
+numObj downTo: By: Do:
+\end{lstlisting}
 
 \vspace*{0.2cm}
 \hrule
