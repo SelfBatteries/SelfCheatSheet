@@ -332,7 +332,7 @@ Objects with shared behaviour, which is used by pointing \texttt{parent*} slots 
 
 \subsection{Mixins}
 
-Small objects filled with shared code. This code doesn't contain \texttt{parent*} slot, and it is thus not directly part of the OOP tree. Approximate analogy to other languages would be interface with implementation.
+Small objects filled with shared code. This code doesn't contain \texttt{parent*} slot, and it is thus not directly part of the OOP tree. Approximate analogy to other languages would be \textit{interface with implementation}.
 
 
 
@@ -360,6 +360,23 @@ You may also use \textit{directed resends}, targeting specific parent:
 intParent.+ 1
 otherParent.keyword: 1 Another: 2
 \end{lstlisting}
+
+
+
+
+\section{Mirrors}
+\textit{Mirrors} provide Self with introspection capabilities.
+
+\textit{Mirror} can be created by sending \texttt{reflect:\ x} message to any \texttt{defaultBehavior} instance. The message will return \textit{dictionary-like} \textit{mirror} object.
+
+\begin{lstlisting}
+defaultBehavior reflect: 1
+\end{lstlisting}
+
+\textit{Mirror} presents you with sort of introspection layer usable for structural changes in \textit{reflectee} (original object \texttt{x}) by manipulating the \textit{dictionary-like} object.
+
+This may be used for examination, addition or removal of the \textit{slots} of the \textit{reflectee}.
+
 
 
 
@@ -657,13 +674,17 @@ numObj downTo: Do:
 numObj downTo: By: Do:
 \end{lstlisting}
 
-\vspace*{0.2cm}
-\hrule
-\vspace*{0.03cm}
-\hrule
 
 
 
+\section{Useful bits}
+copy message
+
+kde stáhnout
+
+kde najít manuál
+
+konference
 
 % Footer
 \vfill
