@@ -1,0 +1,117 @@
+traits collection
+    traits path
+    traits mirrors abstractMirror
+        traits mirrors method
+            traits mirrors activation liveOnes
+                traits mirrors activation
+                    traits mirrors deadActivation
+                    traits mirrors blockMethodActivation
+                    traits mirrors methodActivation
+            traits mirrors blockMethod
+        traits mirrors assignment
+        traits mirrors block
+        traits mirrors float
+        traits mirrors mirror
+        traits mirrors process
+        traits mirrors smallInt
+        traits mirrors vectorish
+            traits mirrors vector
+            traits mirrors byteVector
+                traits mirrors canonicalString
+        traits mirrors slots
+            traits mirrors profiler
+            traits mirrors proxy
+                traits mirrors fctProxy
+    traits sharedQueue
+    traits priorityQueue
+    traits tree
+        traits emptyTrees abstract
+            traits emptyTrees bag
+            traits emptyTrees set
+        traits treeNodes abstract
+            traits treeNodes bag
+            traits treeNodes set
+    traits list
+        traits orderedSet
+        sortedList parent
+            sortedListSet parent
+    traits indexable
+        traits mutableIndexable
+            traits sequence
+                traits sortedSequence
+            traits vector
+                a vector
+                a vector object
+                a vector object object
+                a vector object object object
+                ... a lot of vectors ...
+
+                traits slotAnnotation fields
+                traits objectAnnotation fields
+                traits objectAnnotation fieldsToIgnoreForCopyDownTest
+                traits objectAnnotation fieldsToParse
+                traits slotAnnotation fieldsToIgnoreForCopyDownTest
+                traits slotAnnotation fieldsToNotFileOut
+                traits time monthNames
+                traits time shortMonthNames
+                traits time shortWeekdayNames
+                traits time weekdayNames
+                nullPath contents
+                bytecodeFormat instructionSets twentiethCentury extendedOpcodeNames
+                bytecodeFormat instructionSets twentiethCentury opcodeNames
+                bytecodeFormat instructionSets twentiethCenturyPlusArgumentCount extendedOpcodeNames
+                bytecodeFormat instructionSets twentiethCenturyPlusArgumentCount opcodeNames
+                traits cachedColormap nullPlatformColorVector
+                quartz event buttonNames
+                benchmarks intmm_oo_r xmr
+                benchmarks intmm_oo_r xmb
+                benchmarks intmm_oo_r xma
+                tests programmingPrims argumentSlotAddingObjects badNames
+                traits slotAnnotation fieldsToParse
+                polygonMorph vertexOffsets
+                selectionInListMorph items
+                benchmarks puzzle piececount
+                benchmarks towers stack
+                benchmarks towers_oo stack
+                traits bench doAllBenchmarks v
+                traits profiler abstractCallGraphProfileNode parent
+                    traits profiler accessPt parent
+                    traits profiler abstractCallGraphProfileNode
+                    traits profiler primPt parent
+                    traits profiler methodPt parent
+                    traits profiler leafPt parent
+                    traits profiler blockPt parent
+                traits processStack object object
+                traits profiler foldPt parent
+                    traits profiler foldPt
+                a traits objectAnnotation fields
+            traits byteVector
+                a byteVector
+                byteVector
+                traits int32or64
+                    traits int64
+                    traits int32
+                traits string
+                    traits immutableString
+                        traits canonicalString
+                    traits mutableString
+    traits abstractSetOrDictionary
+        traits abstractSet
+            traits universalSet
+                universalSet
+            traits hashTableSet
+                identitySet parent
+                customizableSet parent
+                reflectiveIdentitySet parent
+                traits set
+                traits sharedSet
+        traits abstractDictionary
+            traits orderedDictionary
+            traits universalDictionary
+                universalDictionary
+            traits hashTableDictionary
+                identityDictionary parent
+                customizableDictionary parent
+                reflectiveIdentityDictionary parent
+                traits dictionary
+                traits sharedDictionary

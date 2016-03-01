@@ -1,0 +1,72 @@
+traits \textit{collection}
+    traits \textit{path}
+    traits mirrors \textit{abstractMirror}
+        traits mirrors \textit{method}
+            traits mirrors activation \textit{liveOnes}
+                traits mirrors \textit{activation}
+                    traits mirrors \textit{deadActivation}
+                    traits mirrors \textit{blockMethodActivation}
+                    traits mirrors \textit{methodActivation}
+            traits mirrors \textit{blockMethod}
+        traits mirrors \textit{assignment}
+        traits mirrors \textit{block}
+        traits mirrors \textit{float}
+        traits mirrors \textit{mirror}
+        traits mirrors \textit{process}
+        traits mirrors \textit{smallInt}
+        traits mirrors \textit{vectorish}
+            traits mirrors \textit{vector}
+            traits mirrors \textit{byteVector}
+                traits mirrors \textit{canonicalString}
+        traits mirrors \textit{slots}
+            traits mirrors \textit{profiler}
+            traits mirrors \textit{proxy}
+                traits mirrors \textit{fctProxy}
+    traits \textit{sharedQueue}
+    traits \textit{priorityQueue}
+    traits \textit{tree}
+        traits \textit{emptyTrees} abstract
+            traits \textit{emptyTrees} bag
+            traits \textit{emptyTrees} set
+        traits \textit{treeNodes} abstract
+            traits \textit{treeNodes} bag
+            traits \textit{treeNodes} set
+    traits \textit{list}
+        traits \textit{orderedSet}
+        \textit{sortedList} parent
+            \textit{sortedListSet} parent
+    traits \textit{indexable}
+        traits \textit{mutableIndexable}
+            traits \textit{sequence}
+                traits \textit{sortedSequence}
+            traits \textit{vector}
+                \textit{vector}
+            traits \textit{byteVector}
+                \textit{byteVector}
+                traits \textit{int32or64}
+                    traits \textit{int64}
+                    traits \textit{int32}
+                traits \textit{string}
+                    traits \textit{immutableString}
+                        traits \textit{canonicalString}
+                    traits \textit{mutableString}
+    traits \textit{abstractSetOrDictionary}
+        traits \textit{abstractSet}
+            traits \textit{universalSet}
+                \textit{universalSet}
+            traits \textit{hashTableSet}
+                \textit{identitySet} parent
+                \textit{customizableSet} parent
+                \textit{reflectiveIdentitySet} parent
+                traits \textit{set}
+                traits \textit{sharedSet}
+        traits \textit{abstractDictionary}
+            traits \textit{orderedDictionary}
+            traits \textit{universalDictionary}
+                \textit{universalDictionary}
+            traits \textit{hashTableDictionary}
+                \textit{identityDictionary} parent
+                \textit{customizableDictionary} parent
+                \textit{reflectiveIdentityDictionary} parent
+                traits \textit{dictionary}
+                traits \textit{sharedDictionary}
