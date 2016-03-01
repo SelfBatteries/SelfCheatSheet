@@ -427,7 +427,9 @@ Self offers a rich variations of \textit{Sets}, \textit{Dictionaries} and \texti
 
 Note: If the elements are added in sorted order, trees may degenerate into lists, which may result in really bad performance.
 
-\vfill
+
+
+
 \columnbreak
 
 There is also variety of \textit{Lists}, \textit{Vectors}, \textit{Strings} and \textit{Queues}:
@@ -535,38 +537,39 @@ As usual in \textit{Smalltalk-like} languages, \textit{control sequences} are im
 
 \small{\begin{tabular}{ p{70pt} p{140pt} l l }
 Message & Description
-\\ \hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{lstlisting}
-obj ifTrue: b
-\end{lstlisting}
-&\vspace*{0.25cm}
-Execute \texttt{b} if the \textit{obj} is \texttt{true}.
+\\\hline\hline
 
-\\ \hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{lstlisting}
-obj ifFalse: b
-\end{lstlisting}
-&\vspace*{0.25cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\texttt{obj ifTrue: b}
+&
+Execute \texttt{b} if the \textit{obj} is \texttt{true}.
+\\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\texttt{obj\ ifFalse:\ b}
+&
 Execute \texttt{b} if the \textit{obj} is \texttt{false}.
 \\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{lstlisting}
+\nointerlineskip
+\begin{lstlisting}[aboveskip=0pt,belowskip=-0.8 \baselineskip]
 obj ifTrue: b1
      False: b2
 \end{lstlisting}
-&\vspace*{0.1cm}
+&
 \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}.
 If not, (optional) \textit{b2} block is used.
 \\\hline %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{lstlisting}
+\nointerlineskip
+\begin{lstlisting}[aboveskip=-8pt,belowskip=-0.8 \baselineskip]
 obj ifFalse: b1
      True: b2
 \end{lstlisting}
-&\vspace*{0.4cm}
-Opposite of previous. 
+&
+Opposite of previous.
 \\ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{tabular}}
 
@@ -574,12 +577,7 @@ Opposite of previous.
 
 
 \subsection{Loops}
-Looping is implemented as sending various loop messages to \textit{block objects}:
-
-\vspace*{0.2cm}
-\hrule
-\vspace*{0.03cm}
-\hrule
+Looping is implemented by sending various loop messages to \textit{block objects}:
 
 \begin{lstlisting}
 [ ... ] loop
@@ -638,10 +636,8 @@ Loop until the \texttt{exit} parameter is not evaluated.
 \end{lstlisting}
 Loop until the \texttt{exit} parameter is not evaluated. Allows to return the \texttt{value} with the exit from the loop.
 
-\vspace{0.2cm}
-\hrule
-\vspace{0.03cm}
-\hrule
+
+
 
 \subsubsection{integerIteration loops}
 
