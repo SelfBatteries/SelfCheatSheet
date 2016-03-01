@@ -511,7 +511,7 @@ Iterate over collections.
 Main reason to use it is the \texttt{\&} operator, which may simplify the syntax required to create such collection.
 
 \nointerlineskip\begin{lstlisting}
-(1 & ' and ' & 2) asList
+(1 & '+' & 2) asList
 \end{lstlisting}\nointerlineskip
 
 
@@ -674,22 +674,116 @@ numObj downTo: By: Do:
 
 
 \section{Useful bits}
-copy message
+\subsection{copy message}
+Often, you will need to create new instance of some object. What is in other languages implemented by calling \texttt{new}, or other processes calling the object builders is in prototype languages usually done by copying the object into new instance.
 
-kde stáhnout
+In Self, you may do this by simply sending the \texttt{copy} message:
 
-kde najít manuál
+\begin{lstlisting}
+obj copy
+\end{lstlisting}
 
-konference
+
+
+\subsection{Interpreter parameters}
+When you run the Self interpreter on the \textit{commandline}, it expects that you specify the path to the \textit{World snapshot}. That may be supplied using \texttt{-s} parameter.
+
+Self \textit{worlds} are images for the virtual machine. You may use the official, but there is nothing, that prevents you to create your own, with or without Graphical User Interface.
+
+
+
+\subsection{Self's REPL}
+When you run your world, it is easy to forget, that Self's interpreter also provides you with Read Eval Print Loop in the console. This allows you to send messages like if you were in the Shell in GUI. For example, if no windows opens, or the \textit{desktop} crashes, you may open it by sending:
+
+\begin{lstlisting}
+desktop open
+\end{lstlisting}
+
+\texttt{CTRL+c} will bring the scheduler, where you may kill processes.
+
+You may also \href{http://handbook.selflanguage.org/4.5/textdebug.html}{debug} processes using \texttt{debugger\ attach:\ N}.
+
+
+
+
+\vfill
+\columnbreak
+\section{Additional informations}
+\subsection{Download}
+Newest Self may be downloaded from the official web:
+
+\begin{itemize}[noitemsep]
+\item \url{http://selflanguage.org}
+\end{itemize}
+
+Source code may be obtained from the GitHub:
+
+\begin{itemize}[noitemsep]
+\item \url{https://github.com/russellallen/self}
+\end{itemize}
+
+
+
+\subsection{Manual and tutorial}
+There is good manual called Self handbook:
+
+\begin{itemize}[noitemsep]
+\item \href{http://handbook.selflanguage.org/4.5/}{Self Handbook} (online)
+\item \href{https://dl.dropboxusercontent.com/u/11891854/tmp/ebooks/Self/SelfHandbook.pdf}{Self Handbook} (pdf)
+\item \href{https://dl.dropboxusercontent.com/u/11891854/tmp/ebooks/Self/SelfHandbook.epub}{Self Handbook} (ePub)
+\end{itemize}
+
+This \textit{Cheat sheet} was created with high inspiration from this book.
+
+If one of the links doesn't work, you may always build it for yourself from sources (\texttt{/docs/handbook}) using Sphinx (\texttt{make} \texttt{html} / \texttt{pdf} / \texttt{epub}).
+
+There is also slightly outdated Self tutorial (\texttt{/docs/tutorial}) called \href{http://kitakitsune.org/bhole/self_tutorial/}{\footnotesize Prototype-Based Application Construction Using SELF 4.0}.
+
+
+
+\subsection{Other writings}
+
+There is blog:
+
+\begin{itemize}[noitemsep]
+\item \url{http://blog.selflanguage.org}
+\end{itemize}
+
+and also a lot of academic papers:
+
+\begin{itemize}[noitemsep]
+\item \url{http://bibliography.selflanguage.org}
+\end{itemize}
+
+
+
+\subsection{Community}
+There is not-quite dead IRC channel \texttt{\#self-lang} at \texttt{irc://freenode.org:6667}.
+
+There is also forum at:
+
+\begin{itemize}[noitemsep]
+\item \url{http://forum.selflanguage.org/}
+\end{itemize}
+
+If the forum doesn't work, don't worry, it is just frontend for mail conference \href{https://groups.yahoo.com/neo/groups/self-interest/info}{self-interest-subscribe@yahoogroups.com}.
+
+\subsection{Disclaimer}
+
+I did this as my notes while learning Self. That means, that there will be typos and bugs. If you find any, please send pull request.
+
+Self may seem dead, but it is not. There is not much active people, but that only means, that you can make difference.
+
+
+
 
 % Footer
-\vfill
+\vspace*{0.4cm}
 \hrule
 \smallskip
-
 {\small
-The cards may be freely distributed under
-the terms of the MIT licence ---
+Self cheatsheet may be freely distributed under
+the terms of the MIT license ---
 Copyleft \textcopyleft\ \thedate{} \href{http://kitakitsune.org}{\theauthor}. Version 1.0.
 
 \url{https://github.com/Bystroushaak/SelfCheatSheet}
