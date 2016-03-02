@@ -1,6 +1,6 @@
 Self cheatsheet
 ===============
-Informations about the `Self programming language <http://selflanguage.org>`_ in compact form.
+Informations about the `Self programming language <http://selflanguage.org>`_ (selflang) in compact form.
 
 About
 -----
