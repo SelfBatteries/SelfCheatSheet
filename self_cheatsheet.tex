@@ -28,7 +28,6 @@
 \usepackage{textcomp}
 \usepackage{hyperref}
 \usepackage{dirtree}
-% \setlength{\DTbaselineskip}{5pt}
 \DTsetlength{0.2em}{0.5em}{0.3em}{0.4pt}{1.6pt}
 
 % Page layout
@@ -94,16 +93,20 @@
 }
 
 
-% Content =====================================================================
+
+
+% Content %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \begin{multicols*}{3}
 \maketitle
 
-\section{Object syntax}
 
+
+
+\section{Object syntax}
 An \textit{object} consists from (possibly empty) set of \textit{slots} and (optionally) \textit{code}.
 
-Slots behave as key-value lookup table for data or objects. \textit{Code} is a sequence of \textit{expressions} (\textit{message sends} and \textit{literals}) separated by dots, and evaluated in order.
+Slots behave as key-value lookup table, translating messages to objects. \textit{Code} is a sequence of \textit{expressions} (\textit{message sends} and \textit{literals}) separated by dots, evaluated in order.
 
 Syntax is straightforward:
 
@@ -135,7 +138,7 @@ for empty object.
 
 \subsection{Comments}
 
-Comments use double quotes and are ignored by parser. See \textit{Annotation slot} in subsection \textit{Special slots}.
+Comments use double quotes and are ignored by parser.
 
 \begin{lstlisting}
 ("empty object same as () or (| |)")
@@ -143,21 +146,15 @@ Comments use double quotes and are ignored by parser. See \textit{Annotation slo
 
 
 
-
 \subsection{Slot assignments}
 
-Slots can be assigned at the definition, either read only using \texttt{=} operator:
+Slots can be assigned at the time of definition, either read only using \texttt{=} operator:
 
-\begin{lstlisting}
-(| slot = 1 |)
-\end{lstlisting}
+\texttt{(| slot = 1 |)}
 
-or rewritable using \texttt{<-} operator: % TODO: operator, really?
+Or rewritable using \texttt{<-} operator. This operator actually adds two slots - \texttt{slot} for the data and \texttt{slot:} with assignment method object.
 
-\begin{lstlisting}
-(| slot <- 1 |)
-\end{lstlisting}
-
+\texttt{(| slot <- 1 |)}
 
 
 
@@ -180,6 +177,7 @@ obj message: argument
 
 
 
+\columnbreak
 \subsection{Special slots}
 
 \subsubsection{\texttt{self} slot}
@@ -194,6 +192,7 @@ is same thing as
 \begin{lstlisting}
 message
 \end{lstlisting}
+
 
 
 \subsubsection{Annotation slot}
@@ -211,6 +210,7 @@ or
 \end{lstlisting}
 
 
+
 \subsubsection{\texttt{parent*} slot}
 Every object may also contain \texttt{parent*} slot (star is mandatory), to which the lookups unresolved in \texttt{self} slot is delegated. This implements the inheritance.
 
@@ -220,6 +220,8 @@ Every object may also contain \texttt{parent*} slot (star is mandatory), to whic
 \subsection{Method slots}
 
 \textit{Method slots} is the storage for the code in objects.
+
+
 
 \subsubsection{Unary slots}
 Code \textit{slots} without arguments are called \textit{unary}.
@@ -308,7 +310,7 @@ Another difference is support of \textit{non-local return statement} using \text
 
 \subsubsection{Block messages}
 
-\textit{Block objects} take by default message \texttt{value}, which evaluates the code and returns the value.
+\textit{Block objects} take by default message \texttt{value}, which evaluates the code and returns result of last statement.
 
 If the \textit{block object} takes (multiple) parameters, they may be supplied using \texttt{value:\ With:} message pattern:
 
@@ -316,7 +318,7 @@ If the \textit{block object} takes (multiple) parameters, they may be supplied u
 block_obj value: x With: y .. With: z
 \end{lstlisting}
 
-Notice the upper-case first letters in \texttt{With:} message. This signals that this is still part of one message with multiple arguments. In case of blocks, \textbf{unrequested arguments are ignored}, so you may use unlimited number of \texttt{With:}.
+Notice the upper-case first letters in \texttt{With:} message. This tells the Self, that it's still part of one message with multiple arguments. In case of blocks, \textbf{unrequested arguments are ignored}, so you may use unlimited number of \texttt{With:}.
 
 
 
@@ -332,7 +334,7 @@ Objects with shared behaviour, which is used by pointing \texttt{parent*} slots 
 
 \subsection{Mixins}
 
-Small objects filled with shared code. This code doesn't contain \texttt{parent*} slot, and it is thus not directly part of the OOP tree. Approximate analogy to other languages would be \textit{interface with implementation}.
+Small objects filled with shared code. This code doesn't contain \texttt{parent*} slot, and it is thus not directly part of the OOP tree. Approximate analogy to other languages would be \textit{interface with (partial) implementation}.
 
 
 
@@ -344,9 +346,9 @@ Prototype objects and \textit{oddballs} (unique singletons) like \texttt{true}, 
 
 \section{Resends}
 
-\textit{Resends} allows you to delegate the messages to the parent branches of OOP tree. Resend messages are equivalent of \textit{super} calls in other languages.
+\textit{Resends} allows you to delegate the messages to the parent branches of OOP tree. \textit{Resend messages} are equivalent of \textit{super} calls in other languages.
 
-Syntactically, \textit{resends} are implemented using \textit{resend.} prefix for resent messages:
+Syntactically, \textit{resends} are implemented using \texttt{resend.} prefix for resent messages:
 
 \begin{lstlisting}
 resend.unary
@@ -373,7 +375,7 @@ otherParent.keyword: 1 Another: 2
 defaultBehavior reflect: 1
 \end{lstlisting}
 
-\textit{Mirror} presents you with sort of introspection layer usable for structural changes in \textit{reflectee} (original object \texttt{x}) by manipulating the \textit{dictionary-like} object.
+\textit{Mirror} presents you with sort of introspection layer usable for structural changes in \textit{reflectee} (original object \texttt{x}) by manipulating the \textit{dictionary-like mirror} object.
 
 This may be used for examination, addition or removal of the \textit{slots} of the \textit{reflectee}.
 
@@ -383,7 +385,7 @@ This may be used for examination, addition or removal of the \textit{slots} of t
 \vfill
 \columnbreak
 \section{Collections}
-Various containers for data are implemented as \textit{key:\ val} storages. Even lists use this convention (elements are used both as key and value).
+Various containers for data are implemented as \textit{key:\ val} storages. Even lists use this convention (elements are used both as \textit{key} and \textit{value}).
 
 Self offers a rich variations of \textit{Sets}, \textit{Dictionaries} and \textit{Trees}:
 
@@ -425,7 +427,7 @@ Self offers a rich variations of \textit{Sets}, \textit{Dictionaries} and \texti
 
 \textit{Trees} are different implementations of \textit{dictionaries} using \textit{unbalanced binary trees}.
 
-Note: If the elements are added in sorted order, trees may degenerate into lists, which may result in really bad performance.
+Note: If the elements are added in sorted order, \textit{trees} may degenerate into lists, which may result in really bad performance.
 
 
 
@@ -505,7 +507,6 @@ Iterate over collections.
 
 
 \subsection{Collector}
-
 \textit{Collector} is special kind of object created using \texttt{\&} operator. \textit{Collector} is not a collection, but can be converted to one.
 
 Main reason to use it is the \texttt{\&} operator, which may simplify the syntax required to create such collection.
@@ -529,9 +530,8 @@ As usual in \textit{Smalltalk-like} languages, \textit{control sequences} are im
 
 
 
-
 \subsection{Conditionals}
-\textit{If condition} works by using messages defined in boolean (or boolean traits) objects:
+\textit{If condition} works by using messages defined in \texttt{boolean} (or \texttt{boolean traits}) objects:
 
 \vspace*{0.2cm}
 
@@ -555,7 +555,7 @@ Execute \texttt{b} if the \textit{obj} is \texttt{false}.
 \nointerlineskip
 \begin{lstlisting}[aboveskip=0pt,belowskip=-0.8 \baselineskip]
 obj ifTrue: b1
-     False: b2
+      False: b2
 \end{lstlisting}
 &
 \textit{b1} is executed, when \textit{obj} evaluates to \texttt{true}.
@@ -566,7 +566,7 @@ If not, (optional) \textit{b2} block is used.
 \nointerlineskip
 \begin{lstlisting}[aboveskip=-8pt,belowskip=-0.8 \baselineskip]
 obj ifFalse: b1
-     True: b2
+        True: b2
 \end{lstlisting}
 &
 Opposite of previous.
@@ -640,7 +640,6 @@ Loop until the \texttt{exit} parameter is not evaluated. Allows to return the \t
 
 
 \subsubsection{integerIteration loops}
-
 There is also loops defined as message sends to integers:
 
 \begin{lstlisting}
@@ -677,7 +676,7 @@ numObj downTo: By: Do:
 \subsection{copy message}
 Often, you will need to create new instance of some object. What is in other languages implemented by calling \texttt{new}, or other processes calling the object builders is in prototype languages usually done by copying the object into new instance.
 
-In Self, you may do this by simply sending the \texttt{copy} message:
+In Self, you may do this simply by sending the \texttt{copy} message:
 
 \begin{lstlisting}
 obj copy
@@ -688,12 +687,12 @@ obj copy
 \subsection{Interpreter parameters}
 When you run the Self interpreter on the \textit{commandline}, it expects that you specify the path to the \textit{World snapshot}. That may be supplied using \texttt{-s} parameter.
 
-Self \textit{worlds} are images for the virtual machine. You may use the official, but there is nothing, that prevents you to create your own, with or without Graphical User Interface.
+Self \textit{worlds} are images for the virtual machine. You may use the official, but there is nothing that prevents you to create your own, with or without Graphical User Interface.
 
 
 
 \subsection{Self's REPL}
-When you run your world, it is easy to forget, that Self's interpreter also provides you with Read Eval Print Loop in the console. This allows you to send messages like if you were in the Shell in GUI. For example, if no windows opens, or the \textit{desktop} crashes, you may open it by sending:
+When you run your world, it is easy to forget, that Self's interpreter also provides you with Read Eval Print Loop in the terminal. This allows you to send messages like if you were in the Shell in GUI. For example, if no windows opens, or the \textit{desktop} crashes, you may open it by sending:
 
 \begin{lstlisting}
 desktop open
@@ -709,6 +708,9 @@ You may also \href{http://handbook.selflanguage.org/4.5/textdebug.html}{debug} p
 \vfill
 \columnbreak
 \section{Additional informations}
+
+
+
 \subsection{Download}
 Newest Self may be downloaded from the official web:
 
@@ -768,8 +770,9 @@ There is also forum at:
 
 If the forum doesn't work, don't worry, it is just frontend for mail conference \href{https://groups.yahoo.com/neo/groups/self-interest/info}{self-interest-subscribe@yahoogroups.com}.
 
-\subsection{Disclaimer}
 
+
+\subsection{Disclaimer}
 I did this as my notes while learning Self. That means, that there will be typos and bugs. If you find any, please send pull request.
 
 Self may seem dead, but it is not. There is not much active people, but that only means, that you can make difference.
@@ -782,7 +785,7 @@ Self may seem dead, but it is not. There is not much active people, but that onl
 \hrule
 \smallskip
 {\small
-Self cheatsheet may be freely distributed under
+This file may be freely distributed under
 the terms of the MIT license ---
 Copyleft \textcopyleft\ \thedate{} \href{http://kitakitsune.org}{\theauthor}. Version 1.0.
 
