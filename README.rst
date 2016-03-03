@@ -5,7 +5,7 @@ Informations about the `Self programming language <http://selflanguage.org>`_ (s
 About
 -----
 
-I've decided to create this Cheat sheet to finally force myself into learning Self. There may and will be a lot of bugs and language typos. If you find any, please send request.
+I've decided to create this Cheat sheet to finally force myself into learning Self. There may and will be a lot of bugs and language typos. If you find any, please send pull request.
 
 You may also add new sections, but keep in mind, that this is not a tutorial, nor the manual. Compactness is what counts. If you add a new page, keep in mind, that you should fill that page.
 
