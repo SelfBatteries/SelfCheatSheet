@@ -178,6 +178,7 @@ obj message: argument
 
 
 \columnbreak
+{\small
 \subsection{Special slots}
 
 \subsubsection{\texttt{self} slot}
@@ -211,9 +212,9 @@ or
 
 
 
-\subsubsection{\texttt{parent*} slot}
-Every object may also contain \texttt{parent*} slot (star is mandatory), to which the lookups unresolved in \texttt{self} slot is delegated. This implements the inheritance.
-
+\subsubsection{\texttt{parent} slots}
+Every object may also contain one or more parent slots, which are slots whose names end in a star (\texttt{*}). Lookups unresolved in the receiving object are delegated to these parent slots. This is used to implement inheritance (often with a single parent slot named \texttt{parent*}) and also mixins, and namespaces.
+}
 
 
 
@@ -333,8 +334,7 @@ Objects with shared behaviour, which is used by pointing \texttt{parent*} slots 
 
 
 \subsection{Mixins}
-
-Small objects filled with shared code. This code doesn't contain \texttt{parent*} slot, and it is thus not directly part of the OOP tree. Approximate analogy to other languages would be \textit{interface with (partial) implementation}.
+Mixins are small, parentless bundles of behavior designed to be \textit{mixed into} some other object. Approximate analogy to other languages would be \textit{interface with (partial) implementation}.
 
 
 
@@ -345,7 +345,6 @@ Prototype objects and \textit{oddballs} (unique singletons) like \texttt{true}, 
 
 
 \section{Resends}
-
 \textit{Resends} allows you to delegate the messages to the parent branches of OOP tree. \textit{Resend messages} are equivalent of \textit{super} calls in other languages.
 
 Syntactically, \textit{resends} are implemented using \texttt{resend.} prefix for resent messages:
@@ -787,7 +786,7 @@ Self may seem dead, but it is not. There is not much active people, but that onl
 {\small
 This file may be freely distributed under
 the terms of the MIT license ---
-Copyleft \textcopyleft\ \thedate{} \href{http://kitakitsune.org}{\theauthor}. Version 1.0.
+Copyleft \textcopyleft\ \thedate{} \href{http://kitakitsune.org}{\theauthor}. Version 1.1 (07.03.2016).
 
 \url{https://github.com/Bystroushaak/SelfCheatSheet}
 }
